@@ -5,7 +5,7 @@ class srokap_http {
 	 * @param string $url URL to fetch
 	 * @return string|boolean returns response contents on success or false on failure
 	 */
-	private static function getUrl($url) {
+	public static function getUrl($url) {
 		//try url fopen
 		$file = fopen($url, 'r');
 		if ($file!==false) {
@@ -36,7 +36,7 @@ class srokap_http {
 	 * @param resource $file file handle to write response to
 	 * @return string|boolean returns response contents on success or false on failure
 	 */
-	private static function getUrlToFile($url, $file) {
+	public static function getUrlToFile($url, $file) {
 // 		//try url fopen
 // 		$file = fopen($url, 'r');
 // 		if ($file!==false) {
