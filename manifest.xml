@@ -21,6 +21,16 @@
 	</requires>
 	
 	<requires>
+		<type>php_extension</type>
+		<name>Phar</name>
+	</requires>
+	
+	<requires>
+		<type>php_extension</type>
+		<name>zip</name>
+	</requires>
+	
+	<requires>
 		<type>php_ini</type>
 		<name>allow_url_fopen</name>
 		<value>on</value>

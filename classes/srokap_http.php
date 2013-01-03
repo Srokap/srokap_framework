@@ -31,19 +31,32 @@ class srokap_http {
 	}
 	
 	/**
-	 * Tries to fetch contents of the URL.
+	 * Tries to fetch contents of the URL directly to file and take care of possible big content size.
 	 * @param string $url URL to fetch
-	 * @param resource $file file handle to write response to
-	 * @return string|boolean returns response contents on success or false on failure
+	 * @param resource|string $file file handle to write response to
+	 * @return array|boolean array with metadata if operation was successful or false on failure
 	 */
 	public static function getUrlToFile($url, $file) {
-// 		//try url fopen
-// 		$file = fopen($url, 'r');
-// 		if ($file!==false) {
-// 			$result = stream_get_contents($file);
-// 			fclose($file);
-// 			return $result;
-// 		}
+		if (!is_resource($file)) {
+			$file = fopen($file, 'w+');
+			if (!$file) {
+				return false;
+			}
+		}
+		//try url fopen
+		$source = fopen($url, 'r');
+		if ($source!==false) {
+			$bufferSize = 65536;//64 KB
+			while (!feof($source)) {
+				if (fwrite($file, fgets($source, $bufferSize))===false) {
+					return false;
+				}
+			}
+			$meta = stream_get_meta_data($source);
+			fclose($source);
+			fclose($file);
+			return $meta;
+		}
 // 		//try curl
 // 		if (extension_loaded('curl')) {
 // 			$ch = curl_init($url);
