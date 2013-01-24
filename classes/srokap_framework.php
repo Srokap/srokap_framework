@@ -2,6 +2,7 @@
 class srokap_framework {
 	static function init() {
 // 		elgg_register_event_handler('pagesetup', 'system', array(__CLASS__, 'pagesetup'));
+		elgg_register_js('uri.js', elgg_get_config('wwwroot').'mod/'.__CLASS__.'/vendors/URI.min.js');
 	}
 	
 // 	static function pagesetup() {
