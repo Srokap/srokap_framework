@@ -2,7 +2,14 @@
 class srokap_framework {
 	static function init() {
 // 		elgg_register_event_handler('pagesetup', 'system', array(__CLASS__, 'pagesetup'));
-		elgg_register_js('uri.js', elgg_get_config('wwwroot').'mod/'.__CLASS__.'/vendors/URI.min.js');
+		if (function_exists('elgg_require_js')) {
+			elgg_register_js('uri.js', array(
+				'src' => '/mod/'.__CLASS__.'/vendors/URI.js'
+			));
+		} else {
+			elgg_register_js('uri.js', elgg_get_config('wwwroot').'mod/'.__CLASS__.'/vendors/URI.js');
+		}
+		
 	}
 	
 // 	static function pagesetup() {
